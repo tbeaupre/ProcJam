@@ -52,11 +52,12 @@ namespace Source.CFG
             {
                 Destroy(obj);
             }
+            drawn.Clear();
         }
 
         private void DrawTile(Tile tile, int x, int y)
         {
-            drawn.Add(Instantiate((tile.isRoom ? roomTilePrefab : emptyTilePrefab), new Vector3(x * tileSize, y * tileSize, 0), Quaternion.identity));
+            drawn.Add(Instantiate(tile.isRoom ? roomTilePrefab : emptyTilePrefab, new Vector3(x * tileSize, y * tileSize, 0), Quaternion.identity));
 
             if (x % 2 == 0)
             {

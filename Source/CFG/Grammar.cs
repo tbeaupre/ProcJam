@@ -20,11 +20,17 @@ namespace Source.CFG
 
         public void Iterate()
         {
-            foreach (Rule rule in rules)
+            for (int i = 0; i < current.Length - 2; i++)
             {
-                if (current.Contains(rule.input))
+                string sub = current.Substring(i, 3);
+                
+                foreach (Rule rule in rules)
                 {
-                    current = current.Replace(rule.input, rule.ChooseOutput());
+                    if (sub.Equals(rule.input))
+                    {
+                        current = current.Remove(i, 3);
+                        current = current.Insert(i, rule.ChooseOutput());
+                    }
                 }
             }
         }

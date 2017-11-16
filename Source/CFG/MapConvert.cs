@@ -39,16 +39,16 @@ namespace Source.CFG
             switch (direction)
             {
                 case Direction.Up:
-                    y += 1;
+                    if (y < MapVars.height - 1) y += 1;
                     break;
                 case Direction.Right:
-                    x += 1;
+                    if (x < MapVars.width - 1) x += 1;
                     break;
                 case Direction.Down:
-                    y -= 1;
+                    if (y > 0) y -= 1;
                     break;
                 case Direction.Left:
-                    x -= 1;
+                    if (x > 0) x -= 1;
                     break;
             }
         }
