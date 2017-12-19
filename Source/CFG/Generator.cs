@@ -6,14 +6,14 @@ namespace Source.CFG
 {
     public class Generator
     {
-        public Grammar grammar { get; private set; }
-        public Vector2 start { get; private set; }
-        public Vector2 goal { get; private set; }
+        public Grammar Grammar { get; private set; }
+        public Grammar CleanGrammar { get; private set; }
+        public Vector2 Start { get; private set; }
+        public Vector2 Goal { get; private set; }
         
         public Generator()
         {
-            grammar = new Grammar(GenerateStartPath());
-            
+            Grammar = new Grammar(GenerateStartPath());
             // Right turn.
             Rule rightRule = new Rule("RFF");
             rightRule.AddOutput(0.3f, "FRFRFLF");
@@ -25,24 +25,37 @@ namespace Source.CFG
             straightRule.AddOutput(0.25f, "FRFLFLFRF");
             straightRule.AddOutput(0.25f, "FLFRFRFLF");
             
-            grammar.AddRule(rightRule);
-            grammar.AddRule(leftRule);
-            grammar.AddRule(straightRule);
+            Grammar.AddRule(rightRule);
+            Grammar.AddRule(leftRule);
+            Grammar.AddRule(straightRule);
+            
+            // Set up the grammar for cleaning up the path.
+            CleanGrammar = new Grammar("");
+            // Right loop.
+            Rule rightLoopRule = new Rule("FLFLFLF");
+            rightLoopRule.AddOutput(0.5f, "FLFLFRF");
+            rightLoopRule.AddOutput(0.5f, "FLFLFF");
+            // Left loop.
+            Rule leftLoopRule = new Rule("FRFRFRF");
+            leftLoopRule.AddOutput(0.5f, "FRFRFLF");
+            leftLoopRule.AddOutput(0.5f, "FRFRFF");
+            
+            CleanGrammar.AddRule(rightLoopRule);
+            CleanGrammar.AddRule(leftLoopRule);
         }
 
         private string GenerateStartPath()
         {
             // Choose start and goal.
-            start = new Vector2((int)(Random.value * MapVars.width), (int)(Random.value * MapVars.height));
+            Start = new Vector2((int)(Random.value * MapVars.width), (int)(Random.value * MapVars.height));
             do
             {
                 // This should probably be a bit smarter.
-                goal =  new Vector2((int)(Random.value * MapVars.width), (int)(Random.value * MapVars.height));
-                
-            } while (Vector2.Distance(start, goal) < GeneratorRules.toGoalMin * MapVars.width);
+                Goal =  new Vector2((int)(Random.value * MapVars.width), (int)(Random.value * MapVars.height));
+            } while (Vector2.Distance(Start, Goal) < GeneratorRules.toGoalMin * MapVars.width);
 
             string result = "";
-            if (start.x < goal.x)
+            if (Start.x < Goal.x)
             {
                 result += "R";
             }
@@ -50,9 +63,9 @@ namespace Source.CFG
             {
                 result += "L";
             }
-            result += new string('F', (int)Math.Abs(start.x - goal.x));
+            result += new string('F', (int)Math.Abs(Start.x - Goal.x));
             
-            if (start.y < goal.y)
+            if (Start.y < Goal.y)
             {
                 if (result[0] == 'R') result += "L";
                 else result += "R";
@@ -62,7 +75,7 @@ namespace Source.CFG
                 if (result[0] == 'R') result += "R";
                 else result += "L";
             }
-            result += new string('F', (int)Math.Abs(start.y - goal.y));
+            result += new string('F', (int)Math.Abs(Start.y - Goal.y));
             return result;
         }
     }

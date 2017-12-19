@@ -16,7 +16,6 @@ namespace Source
         {
             int current = (int)currentDirection;
             int next = (current + 1) % 4;
-            Debug.Log((Direction)next);
             return (Direction)next;
         }
         
@@ -24,7 +23,6 @@ namespace Source
         {
             int current = (int)currentDirection;
             int next = (current + 3) % 4;
-            Debug.Log((Direction)next);
             return (Direction)next;
         }
     }

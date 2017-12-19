@@ -5,13 +5,13 @@ namespace Source.CFG
 {
     public class Rule
     {
-        public string input { get; private set; }
+        public string Input { get; private set; }
         private readonly List<string> outputs;
         private readonly List<float> probs;
 
         public Rule(string newInput)
         {
-            input = newInput;
+            Input = newInput;
             outputs = new List<string>();
             probs = new List<float>();
         }
@@ -37,7 +37,7 @@ namespace Source.CFG
                 }
             }
 
-            return input;
+            return Input;
         }
     }
 }

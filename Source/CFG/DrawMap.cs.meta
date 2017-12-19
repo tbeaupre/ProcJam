@@ -1,3 +1,18 @@
-﻿fileFormatVersion: 2
+fileFormatVersion: 2
 guid: dd9b6c84178d48c8b8146b8a7c3f71ea
-timeCreated: 1510798384
+timeCreated: 1511131447
+licenseType: Pro
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - emptyTilePrefab: {fileID: 1750751746591070, guid: 3487e00e47c3f4545bceffd5eb08164c,
+      type: 2}
+  - roomTilePrefab: {fileID: 1520589730549960, guid: a070986e880786841ba0b26d60cb9c91,
+      type: 2}
+  - wallPrefab: {fileID: 1556369944036060, guid: 367acb7d0923ae84bb2873ba669277f2,
+      type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

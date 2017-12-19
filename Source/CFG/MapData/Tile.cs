@@ -2,21 +2,41 @@
 {
     public class Tile
     {
-        public bool isRoom { get; set; }
+        public bool IsRoom { get; set; }
 
-        public Wall left { get; private set; }
-        public Wall right { get; private set; }
-        public Wall up { get; private set; }
-        public Wall down { get; private set; }
-
-        public Tile(Wall left, Wall down)
+        public Wall left;
+        public Wall right;
+        public Wall up;
+        public Wall down;
+        
+        private Tile()
         {
-            isRoom = false;
+            IsRoom = false;
 
-            this.left = left;
-            this.down = down;
+            left = new Wall();
+            down = new Wall();
             right = new Wall();
             up = new Wall();
+        }
+
+        public static Tile CreateFirstTile()
+        {
+            return new Tile();
+        }
+
+        public static Tile CreateTile(ref Wall newLeft, ref Wall newDown)
+        {
+            return new Tile {left = newLeft, down = newDown};
+        }
+        
+        public static Tile CreateBottomTile(ref Wall newLeft)
+        {
+            return new Tile {left = newLeft};
+        }
+
+        public static Tile CreateLeftTile(ref Wall newDown)
+        {
+            return new Tile {down = newDown};
         }
 
         public Wall GetWall(Direction direction)

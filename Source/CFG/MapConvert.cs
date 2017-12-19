@@ -9,18 +9,18 @@ namespace Source.CFG
             Map map = new Map();
 
             Direction direction = Direction.Up;
-            int x = (int)generator.start.x;
-            int y = (int)generator.start.y;
+            int x = (int)generator.Start.x;
+            int y = (int)generator.Start.y;
             
-            map.GetTileAt(x, y).isRoom = true;
-            foreach (char c in generator.grammar.current)
+            map.GetTileAt(x, y).IsRoom = true;
+            foreach (char c in generator.Grammar.Current)
             {
                 switch (c)
                 {
                     case 'F':
                         map.GetTileAt(x, y).GetWall(direction).SetPass(passLevel);
                         MoveInDirection(ref x, ref y, direction);
-                        map.GetTileAt(x, y).isRoom = true;
+                        map.GetTileAt(x, y).IsRoom = true;
                         break;
                     case 'L':
                         direction = DirectionHelper.Left(direction);

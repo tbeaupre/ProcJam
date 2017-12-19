@@ -5,11 +5,11 @@ namespace Source.CFG
     public class Grammar
     {
         private readonly List<Rule> rules;
-        public string current { get; private set; }
+        public string Current { get; set; }
 
         public Grammar(string startSymbol)
         {
-            current = startSymbol;
+            Current = startSymbol;
             rules = new List<Rule>();
         }
 
@@ -18,21 +18,25 @@ namespace Source.CFG
             rules.Add(rule);
         }
 
-        public void Iterate()
+        public string Iterate()
         {
-            for (int i = 0; i < current.Length - 2; i++)
+            for (int i = 0; i < Current.Length; i++)
             {
-                string sub = current.Substring(i, 3);
-                
                 foreach (Rule rule in rules)
                 {
-                    if (sub.Equals(rule.input))
+                    if (i + rule.Input.Length < Current.Length)
                     {
-                        current = current.Remove(i, 3);
-                        current = current.Insert(i, rule.ChooseOutput());
+                        string sub = Current.Substring(i, rule.Input.Length);
+                        if (sub == rule.Input)
+                        {
+                            Current = Current.Remove(i, rule.Input.Length);
+                            Current = Current.Insert(i, rule.ChooseOutput());
+                        }
                     }
                 }
             }
+            
+            return Current;
         }
     }
 }
